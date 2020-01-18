@@ -3,13 +3,17 @@
 
 Name:           python-virtualenv
 Version:        1.10.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tool to create isolated Python environments
 
 Group:          Development/Languages
 License:        MIT
 URL:            http://pypi.python.org/pypi/virtualenv
 Source0:        http://pypi.python.org/packages/source/v/virtualenv/virtualenv-%{version}.tar.gz
+# Patch that shows a custom error message when a FILE passed to virtualenv
+# to be used as 'home dir' already exists and is NOT a directory.
+# rhbz#1306513
+Patch0:         polish-error-msg-when-file-is-passed.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch:      noarch
@@ -30,6 +34,7 @@ licensed under an MIT-style permissive license.
 
 %prep
 %setup -q -n virtualenv-%{version}
+%patch0 -p1
 %{__sed} -i -e "1s|#!/usr/bin/env python||" virtualenv.py 
 
 
@@ -66,6 +71,11 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon May 09 2016 Tomas Orsava <torsava@redhat.com> - 1.10.1-3
+- Added a patch that shows a custom error message when a FILE passed to
+  virtualenv to be used as 'home dir' already exists and is NOT a directory.
+Resolves: rhbz#1306513
+
 * Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 1.10.1-2
 - Mass rebuild 2013-12-27
 
