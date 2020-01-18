@@ -3,7 +3,7 @@
 
 Name:           python-virtualenv
 Version:        1.10.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Tool to create isolated Python environments
 
 Group:          Development/Languages
@@ -14,6 +14,12 @@ Source0:        http://pypi.python.org/packages/source/v/virtualenv/virtualenv-%
 # to be used as 'home dir' already exists and is NOT a directory.
 # rhbz#1306513
 Patch0:         polish-error-msg-when-file-is-passed.patch
+# Make virtualenv compatible with Python 3.4
+# Fixed upstream:
+# https://github.com/pypa/virtualenv/commit/8ce3fcf153dd71c0e7f317161eefe2f6e7215ff0
+# https://github.com/pypa/virtualenv/commit/232ab405ab72bbb6b4032eb555dc4aa0a00c94f3
+# Resolves: https://bugzilla.redhat.com/show_bug.cgi?id=1411685
+Patch1:			fix-python34-compatibility.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch:      noarch
@@ -35,6 +41,7 @@ licensed under an MIT-style permissive license.
 %prep
 %setup -q -n virtualenv-%{version}
 %patch0 -p1
+%patch1 -p1
 %{__sed} -i -e "1s|#!/usr/bin/env python||" virtualenv.py 
 
 
@@ -71,6 +78,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Feb 08 2017 Charalampos Stratakis <cstratak@redhat.com> - 1.10.1-4
+- Fix Python 3.4 compatibility
+Resolves: rhbz#1411685
+
 * Mon May 09 2016 Tomas Orsava <torsava@redhat.com> - 1.10.1-3
 - Added a patch that shows a custom error message when a FILE passed to
   virtualenv to be used as 'home dir' already exists and is NOT a directory.
