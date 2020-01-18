@@ -1,21 +1,349 @@
-Changes & News
---------------
+Release History
+===============
 
-.. warning::
+15.1.0 (2016-11-15)
+-------------------
 
-   Python bugfix releases 2.6.8, 2.7.3, 3.1.5 and 3.2.3 include a change that
-   will cause "import random" to fail with "cannot import name urandom" on any
-   virtualenv created on a Unix host with an earlier release of Python
-   2.6/2.7/3.1/3.2, if the underlying system Python is upgraded. This is due to
-   the fact that a virtualenv uses the system Python's standard library but
-   contains its own copy of the Python interpreter, so an upgrade to the system
-   Python results in a mismatch between the version of the Python interpreter
-   and the version of the standard library. It can be fixed by removing
-   ``$ENV/bin/python`` and re-running virtualenv on the same target directory
-   with the upgraded Python.
+* Support Python 3.6.
+
+* Upgrade setuptools to 28.0.0.
+
+* Upgrade pip to 9.0.1.
+
+* Don't install pre-release versions of pip, setuptools, or wheel from PyPI.
+
+
+15.0.3 (2016-08-05)
+-------------------
+
+* Test for given python path actually being an executable *file*, :issue:`939`
+
+* Only search for copy actual existing Tcl/Tk directories (:pull:`937`)
+
+* Generically search for correct Tcl/Tk version (:pull:`926`, :pull:`933`)
+
+* Upgrade setuptools to 22.0.5
+
+15.0.2 (2016-05-28)
+-------------------
+
+* Copy Tcl/Tk libs on Windows to allow them to run,
+  fixes :issue:`93` (:pull:`888`)
+
+* Upgrade setuptools to 21.2.1.
+
+* Upgrade pip to 8.1.2.
+
+
+15.0.1 (2016-03-17)
+-------------------
+
+* Print error message when DEST_DIR exists and is a file
+
+* Upgrade setuptools to 20.3
+
+* Upgrade pip to 8.1.1.
+
+
+15.0.0 (2016-03-05)
+-------------------
+
+* Remove the `virtualenv-N.N` script from the package; this can no longer be
+  correctly created from a wheel installation.
+  Resolves :issue:`851`, :issue:`692`
+
+* Remove accidental runtime dependency on pip by extracting certificate in the
+  subprocess.
+
+* Upgrade setuptools 20.2.2.
+
+* Upgrade pip to 8.1.0.
+
+
+14.0.6 (2016-02-07)
+-------------------
+
+* Upgrade setuptools to 20.0
+
+* Upgrade wheel to 0.29.0
+
+* Fix an error where virtualenv didn't pass in a working ssl certificate for
+  pip, causing "weird" errors related to ssl.
+
+
+14.0.5 (2016-02-01)
+-------------------
+
+* Homogenize drive letter casing for both prefixes and filenames. :issue:`858`
+
+
+14.0.4 (2016-01-31)
+-------------------
+
+* Upgrade setuptools to 19.6.2
+
+* Revert ac4ea65; only correct drive letter case.
+  Fixes :issue:`856`, :issue:`815`
+
+
+14.0.3 (2016-01-28)
+-------------------
+
+* Upgrade setuptools to 19.6.1
+
+
+14.0.2 (2016-01-28)
+-------------------
+
+* Upgrade setuptools to 19.6
+
+* Supress any errors from `unset` on different shells (:pull:`843`)
+
+* Normalize letter case for prefix path checking. Fixes :issue:`837`
+
+
+14.0.1 (2016-01-21)
+-------------------
+
+* Upgrade from pip 8.0.0 to 8.0.2.
+
+* Fix the default of ``--(no-)download`` to default to downloading.
+
+
+14.0.0 (2016-01-19)
+-------------------
+
+* **BACKWARDS INCOMPATIBLE** Drop support for Python 3.2.
+
+* Upgrade setuptools to 19.4
+
+* Upgrade wheel to 0.26.0
+
+* Upgrade pip to 8.0.0
+
+* Upgrade argparse to 1.4.0
+
+* Added support for ``python-config`` script (:pull:`798`)
+
+* Updated activate.fish (:pull:`589`) (:pull:`799`)
+
+* Account for a ``site.pyo`` correctly in some python implementations (:pull:`759`)
+
+* Properly restore an empty PS1 (:issue:`407`)
+
+* Properly remove ``pydoc`` when deactivating
+
+* Remove workaround for very old Mageia / Mandriva linuxes (:pull:`472`)
+
+* Added a space after virtualenv name in the prompt: ``(env) $PS1``
+
+* Make sure not to run a --user install when creating the virtualenv (:pull:`803`)
+
+* Remove virtualenv.py's path from sys.path when executing with a new
+  python. Fixes issue :issue:`779`, :issue:`763` (:pull:`805`)
+
+* Remove use of () in .bat files so ``Program Files (x86)`` works :issue:`35`
+
+* Download new releases of the preinstalled software from PyPI when there are
+  new releases available. This behavior can be disabled using
+  ``--no-download``.
+
+* Make ``--no-setuptools``, ``--no-pip``, and ``--no-wheel`` independent of
+  each other.
+
+
+13.1.2 (2015-08-23)
+-------------------
+
+* Upgrade pip to 7.1.2.
+
+
+13.1.1 (2015-08-20)
+-------------------
+
+* Upgrade pip to 7.1.1.
+
+* Upgrade setuptools to 18.2.
+
+* Make the activate script safe to use when bash is running with ``-u``.
+
+
+13.1.0 (2015-06-30)
+-------------------
+
+* Upgrade pip to 7.1.0
+
+* Upgrade setuptools to 18.0.1
+
+
+13.0.3 (2015-06-01)
+-------------------
+
+* Upgrade pip to 7.0.3
+
+
+13.0.2 (2015-06-01)
+-------------------
+
+* Upgrade pip to 7.0.2
+
+* Upgrade setuptools to 17.0
+
+
+13.0.1 (2015-05-22)
+-------------------
+
+* Upgrade pip to 7.0.1
+
+
+13.0.0 (2015-05-21)
+-------------------
+
+* Automatically install wheel when creating a new virutalenv. This can be
+  disabled by using the ``--no-wheel`` option.
+
+* Don't trust the current directory as a location to discover files to install
+  packages from.
+
+* Upgrade setuptools to 16.0.
+
+* Upgrade pip to 7.0.0.
+
+
+12.1.1 (2015-04-07)
+-------------------
+
+* Upgrade pip to 6.1.1
+
+
+12.1.0 (2015-04-07)
+-------------------
+
+* Upgrade setuptools to 15.0
+
+* Upgrade pip to 6.1.0
+
+
+12.0.7 (2015-02-04)
+-------------------
+
+* Upgrade pip to 6.0.8
+
+
+12.0.6 (2015-01-28)
+-------------------
+
+* Upgrade pip to 6.0.7
+
+* Upgrade setuptools to 12.0.5
+
+
+12.0.5 (2015-01-03)
+-------------------
+
+* Upgrade pip to 6.0.6
+
+* Upgrade setuptools to 11.0
+
+
+12.0.4 (2014-12-23)
+-------------------
+
+* Revert the fix to ``-p`` on Debian based pythons as it was broken in other
+  situations.
+
+* Revert several sys.path changes new in 12.0 which were breaking virtualenv.
+
+12.0.3 (2014-12-23)
+-------------------
+
+* Fix an issue where Debian based Pythons would fail when using -p with the
+  host Python.
+
+* Upgrade pip to 6.0.3
+
+12.0.2 (2014-12-23)
+-------------------
+
+* Upgraded pip to 6.0.2
+
+12.0.1 (2014-12-22)
+-------------------
+
+* Upgraded pip to 6.0.1
+
+
+12.0 (2014-12-22)
+-----------------
+
+* **PROCESS** Version numbers are now simply ``X.Y`` where the leading ``1``
+  has been dropped.
+* Split up documentation into structured pages
+* Now using pytest framework
+* Correct sys.path ordering for debian, issue #461
+* Correctly throws error on older Pythons, issue #619
+* Allow for empty $PATH, pull #601
+* Don't set prompt if $env:VIRTUAL_ENV_DISABLE_PROMPT is set for Powershell
+* Updated setuptools to 7.0
+
+1.11.6 (2014-05-16)
+-------------------
+
+* Updated setuptools to 3.6
+* Updated pip to 1.5.6
+
+1.11.5 (2014-05-03)
+-------------------
+
+* Updated setuptools to 3.4.4
+* Updated documentation to use https://virtualenv.pypa.io/
+* Updated pip to 1.5.5
+
+1.11.4 (2014-02-21)
+-------------------
+
+* Updated pip to 1.5.4
+
+
+1.11.3 (2014-02-20)
+-------------------
+
+* Updated setuptools to 2.2
+* Updated pip to 1.5.3
+
+
+1.11.2 (2014-01-26)
+-------------------
+
+* Fixed easy_install installed virtualenvs by updated pip to 1.5.2
+
+1.11.1 (2014-01-20)
+-------------------
+
+* Fixed an issue where pip and setuptools were not getting installed when using
+  the ``--system-site-packages`` flag.
+* Updated setuptools to fix an issue when installed with easy_install
+* Fixed an issue with Python 3.4 and sys.stdout encoding being set to ascii
+* Upgraded pip to v1.5.1
+* Upgraded setuptools to v2.1
+
+1.11 (2014-01-02)
+-----------------
+
+* **BACKWARDS INCOMPATIBLE** Switched to using wheels for the bundled copies of
+  setuptools and pip. Using sdists is no longer supported - users supplying
+  their own versions of pip/setuptools will need to provide wheels.
+* **BACKWARDS INCOMPATIBLE** Modified the handling of ``--extra-search-dirs``.
+  This option now works like pip's ``--find-links`` option, in that it adds
+  extra directories to search for compatible wheels for pip and setuptools.
+  The actual wheel selected is chosen based on version and compatibility, using
+  the same algorithm as ``pip install setuptools``.
+* Fixed #495, --always-copy was failing (#PR 511)
+* Upgraded pip to v1.5
+* Upgraded setuptools to v1.4
 
 1.10.1 (2013-08-07)
-~~~~~~~~~~~~~~~~~~~
+-------------------
 
 * **New Signing Key** Release 1.10.1 is using a different key than normal with
   fingerprint: 7C6B 7C5D 5E2B 6356 A926 F04F 6E3C BCE9 3372 DCFA
@@ -24,7 +352,7 @@ Changes & News
 
 
 1.10 (2013-07-23)
-~~~~~~~~~~~~~~~~~
+-----------------
 
 * **BACKWARDS INCOMPATIBLE** Dropped support for Python 2.5. The minimum
   supported Python version is now Python 2.6.
@@ -58,14 +386,14 @@ Changes & News
 .. _Distribute: https://pypi.python.org/pypi/distribute
 
 1.9.1 (2013-03-08)
-~~~~~~~~~~~~~~~~~~
+------------------
 
 * Updated to pip 1.3.1 that fixed a major backward incompatible change of
   parsing URLs to externally hosted packages that got accidentily included
   in pip 1.3.
 
 1.9 (2013-03-07)
-~~~~~~~~~~~~~~~~
+----------------
 
 * Unset VIRTUAL_ENV environment variable in deactivate.bat (Pull #364)
 * Upgraded distribute to 0.6.34.
@@ -77,7 +405,7 @@ Changes & News
 
 
 1.8.4 (2012-11-25)
-~~~~~~~~~~~~~~~~~~
+------------------
 
 * Updated distribute to 0.6.31. This fixes #359 (numpy install regression) on
   UTF-8 platforms, and provides a workaround on other platforms:
@@ -92,7 +420,7 @@ Changes & News
   file size.
 
 1.8.3 (2012-11-21)
-~~~~~~~~~~~~~~~~~~
+------------------
 
 * Fixed readline on OS X. Thanks minrk
 
@@ -121,14 +449,14 @@ Changes & News
   distribute is the default (like in Debian).
 
 1.8.2 (2012-09-06)
-~~~~~~~~~~~~~~~~~~
+------------------
 
 * Updated the included pip version to 1.2.1 to fix regressions introduced
   there in 1.2.
 
 
 1.8.1 (2012-09-03)
-~~~~~~~~~~~~~~~~~~
+------------------
 
 * Fixed distribute version used with `--never-download`. Thanks michr for
   report and patch.
@@ -138,7 +466,7 @@ Changes & News
 
 
 1.8 (2012-09-01)
-~~~~~~~~~~~~~~~~
+----------------
 
 * **Dropped support for Python 2.4** The minimum supported Python version is
   now Python 2.5.
@@ -153,7 +481,7 @@ Changes & News
   Branden Rolston.
 
 * Fix a bug in the config option parser that prevented setting negative
-  options with environemnt variables. Thanks Ralf Schmitt.
+  options with environment variables. Thanks Ralf Schmitt.
 
 * Allow setting ``--no-site-packages`` from the config file.
 
@@ -169,7 +497,7 @@ Changes & News
 
 
 1.7.2 (2012-06-22)
-~~~~~~~~~~~~~~~~~~
+------------------
 
 * Updated to distribute 0.6.27.
 
@@ -199,13 +527,13 @@ Changes & News
 
 
 1.7.1.2 (2012-02-17)
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
 * Fixed minor issue in `--relocatable`. Thanks, Cap Petschulat.
 
 
 1.7.1.1 (2012-02-16)
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
 * Bumped the version string in ``virtualenv.py`` up, too.
 
@@ -213,7 +541,7 @@ Changes & News
 
 
 1.7.1 (2012-02-16)
-~~~~~~~~~~~~~~~~~~
+------------------
 
 * Update embedded pip to version 1.1.
 
@@ -246,7 +574,7 @@ Changes & News
 
 
 1.7 (2011-11-30)
-~~~~~~~~~~~~~~~~
+----------------
 
 * Gave user-provided ``--extra-search-dir`` priority over default dirs for
   finding setuptools/distribute (it already had priority for finding pip).
@@ -270,26 +598,26 @@ Changes & News
 
 
 1.6.4 (2011-07-21)
-~~~~~~~~~~~~~~~~~~
+------------------
 
 * Restored ability to run on Python 2.4, too.
 
 
 1.6.3 (2011-07-16)
-~~~~~~~~~~~~~~~~~~
+------------------
 
 * Restored ability to run on Python < 2.7.
 
 
 1.6.2 (2011-07-16)
-~~~~~~~~~~~~~~~~~~
+------------------
 
 * Updated embedded distribute release to 0.6.19.
 
 * Updated embedded pip release to 1.0.2.
 
 * Fixed #141 - Be smarter about finding pkg_resources when using the
-  non-default Python intepreter (by using the ``-p`` option).
+  non-default Python interpreter (by using the ``-p`` option).
 
 * Fixed #112 - Fixed path in docs.
 
@@ -302,7 +630,7 @@ Changes & News
 
 
 1.6.1 (2011-04-30)
-~~~~~~~~~~~~~~~~~~
+------------------
 
 * Start to use git-flow.
 
@@ -317,7 +645,7 @@ Changes & News
 
 
 1.6
-~~~
+---
 
 * Added Python 3 support! Huge thanks to Vinay Sajip and Vitaly Babiy.
 
@@ -328,7 +656,7 @@ Changes & News
 
 
 1.5.2
-~~~~~
+-----
 
 * Moved main repository to Github: https://github.com/pypa/virtualenv
 
@@ -344,7 +672,7 @@ Changes & News
 
 
 1.5.1
-~~~~~
+-----
 
 * Added ``_weakrefset`` requirement for Python 2.7.1.
 
@@ -352,7 +680,7 @@ Changes & News
 
 
 1.5
-~~~
+---
 
 * Include pip 0.8.1.
 
@@ -370,13 +698,13 @@ Changes & News
 
 
 1.4.9
-~~~~~
+-----
 
 * Include pip 0.7.2
 
 
 1.4.8
-~~~~~
+-----
 
 * Fix for Mac OS X Framework builds that use
   ``--universal-archs=intel``
@@ -391,20 +719,20 @@ Changes & News
 
 
 1.4.7
-~~~~~
+-----
 
 * Include pip 0.7
 
 
 1.4.6
-~~~~~
+-----
 
 * Allow ``activate.sh`` to skip updating the prompt (by setting
   ``$VIRTUAL_ENV_DISABLE_PROMPT``).
 
 
 1.4.5
-~~~~~
+-----
 
 * Include pip 0.6.3
 
@@ -413,7 +741,7 @@ Changes & News
 
 
 1.4.4
-~~~~~
+-----
 
 * Include pip 0.6.2 and Distribute 0.6.10
 
@@ -429,13 +757,13 @@ Changes & News
 
 
 1.4.3
-~~~~~
+-----
 
 * Include pip 0.6.1
 
 
 1.4.2
-~~~~~
+-----
 
 * Fix pip installation on Windows
 
@@ -446,13 +774,13 @@ Changes & News
 
 
 1.4.1
-~~~~~
+-----
 
 * Include pip 0.6
 
 
 1.4
-~~~
+---
 
 * Updated setuptools to 0.6c11
 
@@ -462,7 +790,7 @@ Changes & News
 
 
 1.3.4
-~~~~~
+-----
 
 * Virtualenv now copies the actual embedded Python binary on
   Mac OS X to fix a hang on Snow Leopard (10.6).
@@ -492,7 +820,7 @@ Changes & News
 
 
 1.3.3
-~~~~~
+-----
 
 * Use Windows newlines in ``activate.bat``, which has been reported to help
   when using non-ASCII directory names.
@@ -515,7 +843,7 @@ Changes & News
 
 
 1.3.2
-~~~~~
+-----
 
 * Remove the ``[install] prefix = ...`` setting from the virtualenv
   ``distutils.cfg`` -- this has been causing problems for a lot of
@@ -528,7 +856,7 @@ Changes & News
 
 
 1.3.1
-~~~~~
+-----
 
 * Real Python 2.6 compatibility.  Backported the Python 2.6 updates to
   ``site.py``, including `user directories
@@ -551,7 +879,7 @@ Changes & News
 
 
 1.3
-~~~
+---
 
 * Update to Setuptools 0.6c9
 * Added an option ``virtualenv --relocatable EXISTING_ENV``, which
@@ -578,7 +906,7 @@ Changes & News
 
 
 1.2
-~~~
+---
 
 * Added a ``--python`` option to select the Python interpreter.
 * Add ``warnings`` to the modules copied over, for Python 2.6 support.
@@ -587,13 +915,13 @@ Changes & News
 
 
 1.1.1
-~~~~~
+-----
 
 * Added support for Jython 2.5.
 
 
 1.1
-~~~
+---
 
 * Added support for Python 2.6.
 * Fix a problem with missing ``DLLs/zlib.pyd`` on Windows.  Create
@@ -608,7 +936,7 @@ Changes & News
 
 
 1.0
-~~~
+---
 
 * Fix build on systems that use ``/usr/lib64``, distinct from
   ``/usr/lib`` (specifically CentOS x64).
@@ -618,7 +946,7 @@ Changes & News
 
 
 0.9.2
-~~~~~
+-----
 
 * Fix include dir copying on Windows (makes compiling possible).
 * Include the main ``lib-tk`` in the path.
@@ -633,7 +961,7 @@ Changes & News
 
 
 0.9.1
-~~~~~
+-----
 
 * Improve ability to create a virtualenv from inside a virtualenv.
 * Fix a little bug in ``bin/activate``.
@@ -641,7 +969,7 @@ Changes & News
 
 
 0.9
-~~~
+---
 
 * Added ``lib-dynload`` and ``config`` to things that need to be
   copied over in an environment.
@@ -657,7 +985,7 @@ Changes & News
 
 
 0.8.4
-~~~~~
+-----
 
 * Windows installs would sometimes give errors about ``sys.prefix`` that
   were inaccurate.
@@ -665,13 +993,13 @@ Changes & News
 
 
 0.8.3
-~~~~~
+-----
 
 * Added support for Windows.
 
 
 0.8.2
-~~~~~
+-----
 
 * Give a better warning if you are on an unsupported platform (Mac
   Framework Pythons, and Windows).
@@ -680,12 +1008,12 @@ Changes & News
 
 
 0.8.1
-~~~~~
+-----
 
 Fixed packaging of the library.
 
 
 0.8
-~~~
+---
 
 Initial release.  Everything is changed and new!

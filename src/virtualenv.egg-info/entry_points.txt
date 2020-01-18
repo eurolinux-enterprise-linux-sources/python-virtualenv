@@ -1,4 +1,3 @@
 [console_scripts]
 virtualenv = virtualenv:main
-virtualenv-2.7 = virtualenv:main
 

@@ -2,29 +2,28 @@
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
 Name:           python-virtualenv
-Version:        1.10.1
-Release:        4%{?dist}
+Version:        15.1.0
+Release:        2%{?dist}
 Summary:        Tool to create isolated Python environments
 
 Group:          Development/Languages
 License:        MIT
-URL:            http://pypi.python.org/pypi/virtualenv
-Source0:        http://pypi.python.org/packages/source/v/virtualenv/virtualenv-%{version}.tar.gz
-# Patch that shows a custom error message when a FILE passed to virtualenv
-# to be used as 'home dir' already exists and is NOT a directory.
-# rhbz#1306513
-Patch0:         polish-error-msg-when-file-is-passed.patch
-# Make virtualenv compatible with Python 3.4
-# Fixed upstream:
-# https://github.com/pypa/virtualenv/commit/8ce3fcf153dd71c0e7f317161eefe2f6e7215ff0
-# https://github.com/pypa/virtualenv/commit/232ab405ab72bbb6b4032eb555dc4aa0a00c94f3
-# Resolves: https://bugzilla.redhat.com/show_bug.cgi?id=1411685
-Patch1:			fix-python34-compatibility.patch
+URL:            https://pypi.python.org/pypi/virtualenv
+Source0:        https://files.pythonhosted.org/packages/source/v/virtualenv/virtualenv-%{version}.tar.gz
+
+# Disable downloading pip, wheel and setuptools from pypi
+# automatically when creating a new venv.
+# Upstream commit that was reverted:
+# https://github.com/pypa/virtualenv/commit/3d7361ff2e31472cb69d00150fbdf5a3c9af2a0d
+Patch0: disable-pypi-downloads-on-venv-creation.patch
+
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch:      noarch
 BuildRequires:  python2-devel
 Requires:       python-setuptools, python2-devel
+
+Provides:       python2-virtualenv = %{version}-%{release}
 
 %if 0%{?fedora}
 BuildRequires:  python-sphinx
@@ -41,7 +40,6 @@ licensed under an MIT-style permissive license.
 %prep
 %setup -q -n virtualenv-%{version}
 %patch0 -p1
-%patch1 -p1
 %{__sed} -i -e "1s|#!/usr/bin/env python||" virtualenv.py 
 
 
@@ -59,6 +57,10 @@ licensed under an MIT-style permissive license.
 rm -rf $RPM_BUILD_ROOT
 %{__python} setup.py install --skip-build --root $RPM_BUILD_ROOT
 rm -f build/sphinx/html/.buildinfo
+
+# The versioned 2.x script was removed from upstream. Add it back.
+cp %{buildroot}/%{_bindir}/virtualenv %{buildroot}/%{_bindir}/virtualenv-%{python2_version}
+cp %{buildroot}/%{_bindir}/virtualenv %{buildroot}/%{_bindir}/virtualenv-2
 
 
 %clean
@@ -78,6 +80,15 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Sep 13 2017 Charalampos Stratakis <cstratak@redhat.com> - 15.1.0-2
+- Add back the versioned virtualenv script
+Resolves: rhbz#1461154
+
+* Wed Sep 13 2017 Charalampos Stratakis <cstratak@redhat.com> - 15.1.0-1
+- Rebase to version 15.1.0
+- Disable automatic downloads from pypi on new venv creation
+Resolves: rhbz#1461154
+
 * Wed Feb 08 2017 Charalampos Stratakis <cstratak@redhat.com> - 1.10.1-4
 - Fix Python 3.4 compatibility
 Resolves: rhbz#1411685
